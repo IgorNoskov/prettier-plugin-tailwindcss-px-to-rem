@@ -10,32 +10,53 @@ const transformTailwindClasses = (code, options) => {
     parser: recastBabelParser,
   })
 
+  const processStringLiteral = (value) => {
+    return value.replace(/(\w+-?\[[^\]]+])/g, (match) =>
+      convertPxToRem(match, options.tailwindcssPxToRemBaseValue)
+    )
+  }
+
+  const processNode = (node) => {
+    if (node.type === 'StringLiteral') {
+      node.value = processStringLiteral(node.value)
+    } else if (node.type === 'JSXExpressionContainer') {
+      if (node.expression.type === 'StringLiteral') {
+        node.expression.value = processStringLiteral(node.expression.value)
+      } else if (node.expression.type === 'ArrayExpression') {
+        node.expression.elements.forEach((element) => {
+          if (element.type === 'StringLiteral') {
+            element.value = processStringLiteral(element.value)
+          }
+        })
+      } else if (node.expression.type === 'CallExpression') {
+        node.expression.arguments.forEach((arg) => {
+          if (arg.type === 'StringLiteral') {
+            arg.value = processStringLiteral(arg.value)
+          } else if (arg.type === 'ArrayExpression') {
+            arg.elements.forEach((element) => {
+              if (element.type === 'StringLiteral') {
+                element.value = processStringLiteral(element.value)
+              }
+            })
+          }
+        })
+      }
+    } else if (node.type === 'TemplateLiteral') {
+      node.quasis.forEach((quasi) => {
+        quasi.value.raw = processStringLiteral(quasi.value.raw)
+        quasi.value.cooked = processStringLiteral(quasi.value.cooked)
+      })
+    }
+  }
+
   visit(ast, {
     visitJSXAttribute(path) {
       if (
         path.node.name.name === 'className' ||
         path.node.name.name === 'class'
       ) {
-        if (path.node.value && path.node.value.type === 'StringLiteral') {
-          path.node.value.value = path.node.value.value.replace(
-            /(\w+-?\[[^\]]+])/g,
-            (match) =>
-              convertPxToRem(match, options.tailwindcssPxToRemBaseValue)
-          )
-        } else if (
-          path.node.value &&
-          path.node.value.type === 'JSXExpressionContainer' &&
-          path.node.value.expression.type === 'StringLiteral'
-        ) {
-          path.node.value.expression.value =
-            path.node.value.expression.value.replace(
-              /(\w+-?\[[^\]]+])/g,
-              (match) =>
-                convertPxToRem(match, options.tailwindcssPxToRemBaseValue)
-            )
-        }
+        processNode(path.node.value)
       }
-
       this.traverse(path)
     },
   })
