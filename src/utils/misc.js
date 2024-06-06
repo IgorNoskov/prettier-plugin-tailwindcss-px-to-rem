@@ -1,5 +1,5 @@
 const recast = require('recast')
-const recastBabelParser = require('recast/parsers/babel')
+const recastBabelParser = require('recast/parsers/babel-ts')
 const { visit } = require('ast-types')
 
 const convertPxToRem = (value, basePx) =>
@@ -12,7 +12,6 @@ const transformTailwindClasses = (code, options) => {
 
   visit(ast, {
     visitJSXAttribute(path) {
-      console.log('test')
       if (
         path.node.name.name === 'className' ||
         path.node.name.name === 'class'
