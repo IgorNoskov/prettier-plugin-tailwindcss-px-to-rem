@@ -1,4 +1,5 @@
 const prettierBabelParser = require('prettier/parser-babel')
+const prettierTypescriptParser = require('prettier/parser-typescript')
 const { transformTailwindClasses } = require('./utils/misc')
 
 const options = {
@@ -13,6 +14,10 @@ const options = {
 const parsers = {
   babel: {
     ...prettierBabelParser.parsers.babel,
+    preprocess: (code, options) => transformTailwindClasses(code, options),
+  },
+  typescript: {
+    ...prettierTypescriptParser.parsers.typescript,
     preprocess: (code, options) => transformTailwindClasses(code, options),
   },
 }
