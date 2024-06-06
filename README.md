@@ -1,8 +1,8 @@
 # Prettier Plugin Tailwind CSS PX to REM
 
-![npm version](https://img.shields.io/npm/v/prettier-plugin-tailwind-px-to-rem)
-![license](https://img.shields.io/npm/l/prettier-plugin-tailwind-px-to-rem)
-![downloads](https://img.shields.io/npm/dt/prettier-plugin-tailwind-px-to-rem)
+![npm version](https://img.shields.io/npm/v/prettier-plugin-tailwindcss-px-to-rem)
+![license](https://img.shields.io/npm/l/prettier-plugin-tailwindcss-px-to-rem)
+![downloads](https://img.shields.io/npm/dt/prettier-plugin-tailwindcss-px-to-rem)
 
 A Prettier plugin that converts pixel (px) values to rem units in Tailwind CSS classes with arbitrary value, ensuring scalable and responsive design.
 
@@ -22,11 +22,11 @@ A Prettier plugin that converts pixel (px) values to rem units in Tailwind CSS c
 You can install the plugin via npm or yarn:
 
 ```bash
-npm install --save-dev prettier-plugin-tailwind-px-to-rem
+npm install --save-dev prettier-plugin-tailwindcss-px-to-rem
 ```
 or
 ```bash
-yarn add --dev prettier-plugin-tailwind-px-to-rem
+yarn add --dev prettier-plugin-tailwindcss-px-to-rem
 ```
 
 ## Usage
@@ -35,7 +35,7 @@ Add the plugin to your Prettier configuration file (.prettierrc or prettier.conf
 
 ```json
 {
-  "plugins": ["prettier-plugin-tailwind-px-to-rem"]
+  "plugins": ["prettier-plugin-tailwindcss-px-to-rem"]
 }
 ```
 
@@ -83,11 +83,11 @@ By default, the plugin uses a base pixel value of 16px for conversion. If you wa
 
 ```json
 {
-  "plugins": ["prettier-plugin-tailwind-px-to-rem"],
+  "plugins": ["prettier-plugin-tailwindcss-px-to-rem"],
   "tailwindcssPxToRemBaseValue": 16
 }
 ```
 
 ## License
 
-This project is licensed under the ISC License.
+This project is licensed under the MIT License.

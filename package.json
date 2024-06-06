@@ -1,7 +1,11 @@
 {
   "name": "prettier-plugin-tailwindcss-px-to-rem",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IgorNoskov/prettier-plugin-tailwindcss-px-to-rem"
+  },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "formatcheck": "prettier --check \"**/*.@(tsx|ts|jsx|js)\" --semi false --single-quote --tab-width 2 --use-tabs false --trailing-comma es5",
@@ -14,7 +18,7 @@
     "PX to REM"
   ],
   "author": "Igor Noskov",
-  "license": "ISC",
+  "license": "MIT",
   "description": "A Prettier plugin that converts pixel (px) values to rem units in Tailwind CSS classes with arbitrary values, ensuring scalable and responsive design.",
   "dependencies": {
     "ast-types": "^0.16.1",
